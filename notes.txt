@@ -1,0 +1,67 @@
+In your scanner that needs to recognize ILOC instructions, a **token** is typically represented as a pair consisting of:
+
+1. **Part of Speech** (Token Type): This refers to the classification of the lexeme. It's the category that the word or symbol falls into based on the language grammar. In a scanner for ILOC, this could be things like:
+   - `REGISTER`
+   - `INTEGER_LITERAL`
+   - `OPCODE`
+   - `COMMA`
+   - `ARROW`
+   - `END_OF_INSTRUCTION`
+
+2. **Lexeme**: This is the actual sequence of characters that was matched in the input stream. It corresponds to the raw text that the scanner reads and classifies into one of the token types. Examples of lexemes might include:
+   - `"r1"` (for a register)
+   - `"123"` (for a literal integer)
+   - `"loadI"` (for an opcode)
+   - `","` (for a comma)
+
+### Example Token:
+For the instruction `loadI 1024 => r1`, one token might be:
+
+`< OPCODE, "loadI" >`
+
+Here:
+- **Part of Speech**: `OPCODE` (the token type identifying this as an operation code).
+- **Lexeme**: `"loadI"` (the specific string matched from the input stream).
+
+In short, the **"part of speech"** refers to the category (what the token is), and the **"lexeme"** is the literal value of the token in the input stream.
+
+
+ILOC has 5 operations that need to be recognized
+{load, store} - MEMOP
+{loadl} - LOADL
+{add, sub, mult, lshift, rshift} - ARITHOP
+{output} - OUTPUT
+{nop} - NOP
+
+ILOC 11 parts of speech
+MEMOP load, store
+LOADI loadI
+ARITHOP add, sub, mult, lshift, rshift
+OUTPUT output
+NOP nop
+CONSTANT a non-negative integer
+REGISTER ‘r’ followed by a constant
+COMMA ‘,’
+INTO “=>”
+EOF input has been exhausted
+EOL end of the current line
+
+^
+|
+
+Assign a small integer to each of these
+categories (e.g., 0 to 10). Use an array of
+strings, statically initialized, to convert the
+integer to a string for debugging or output.
+Do not use a map or a dictionary. The array
+reference is much cheaper. In general use a
+fixed structure like an array when the
+content does not change, and a map when it
+does (e.g., to map arbitrary strings to
+compact integers)
+
+
+1. implement scanner to recognize specific instrcutions
+
+
+

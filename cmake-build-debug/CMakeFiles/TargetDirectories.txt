@@ -1,0 +1,3 @@
+C:/Users/jtog8/Documents/CompilerLab1/cmake-build-debug/CMakeFiles/CompilerLab1.dir
+C:/Users/jtog8/Documents/CompilerLab1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/jtog8/Documents/CompilerLab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
