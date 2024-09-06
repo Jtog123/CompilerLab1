@@ -1,1 +1,3 @@
+store 22 => r2
 loadI 1024 => r1
+sub r1,r2 => r3
