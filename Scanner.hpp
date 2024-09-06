@@ -15,6 +15,7 @@ using namespace std;
 class Scanner {
     private:
         ifstream inputFile;
+        int test;
 
 
     public:
