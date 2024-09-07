@@ -7,6 +7,8 @@
    - `ARROW`
    - `END_OF_INSTRUCTION`
 
+   NOT REAL JUST HYPOTHETICAL EXAMPLES
+
 2. **Lexeme**: This is the actual sequence of characters that was matched in the input stream. It corresponds to the raw text that the scanner reads and classifies into one of the token types. Examples of lexemes might include:
    - `"r1"` (for a register)
    - `"123"` (for a literal integer)
