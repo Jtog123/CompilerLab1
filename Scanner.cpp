@@ -60,6 +60,9 @@ void Scanner::readFile() {
 
             }
             else {
+                //on broken input files, I may need to initzilize and int and keep a count every time a new identifier is found
+                // unget up to the count
+                // every white space reset the count?
                 // may have to call unget() here to put chars back in the stream
                 // unget can be used multiple time essentially unwinding the stream characters i've gotten
 
@@ -78,9 +81,9 @@ void Scanner::readFile() {
             if(matchNextChar('o') && matchNextChar('a') && matchNextChar('d')){
 
                 //Check for accetped state LOADL
-                if(matchNextChar('l')) {
+                if(matchNextChar('i')) {
                     cout << "Got LOADL" << endl;
-                    tokenStream.push_back({LOADl, "loadl"});
+                    tokenStream.push_back({LOADl, "loadi"});
                 } else {
                     cout << "Got LOAD" << endl;
                     tokenStream.push_back({MEMOP, "load"});
@@ -93,28 +96,51 @@ void Scanner::readFile() {
                 tokenStream.push_back({ARITHOP, "lshift"});
             }
             else {
+
                 //unget?
             }
         }
         // Words what start with R {RSHIFT}
         else if( currentChar == 'r') {
             inputFile.get();
+            if(matchNextChar('s') && matchNextChar('h') && matchNextChar('i')
+                && matchNextChar('f') && matchNextChar('t')) {
+                cout << "Got RSHIFT" << endl;
+                tokenStream.push_back({ARITHOP, "rshift"});
+
+            }
         }
         // Words what start with M {MULT}
         else if (currentChar == 'm') {
             inputFile.get();
+            if(matchNextChar('u') && matchNextChar('l') && matchNextChar('t')) {
+                cout << "got mult" << endl;
+                tokenStream.push_back({ARITHOP, "mult"});
+            }
         }
         // Words what start with A {ADD}
         else if(currentChar == 'a') {
             inputFile.get();
+            if(matchNextChar('d') && matchNextChar('d')) {
+                cout << "Got Add" << endl;
+                tokenStream.push_back({ARITHOP, "add"});
+            }
         }
         // Words what start with N {NOP}
         else if(currentChar == 'n') {
             inputFile.get();
+            if(matchNextChar('o') && matchNextChar('p')) {
+                tokenStream.push_back({NOP, "nop"});
+            }
         }
         // Words what start with O {OUTPUT}
         else if (currentChar == 'o') {
             inputFile.get();
+            if(matchNextChar('u') && matchNextChar('t') && matchNextChar('p')
+                && matchNextChar('u') && matchNextChar('t')) {
+                tokenStream.push_back({OUTPUT, "output"});
+
+            }
         }
         else {
             inputFile.get();
@@ -124,9 +150,17 @@ void Scanner::readFile() {
     }
 
     //enum read as an int
+    cout << endl;
+    cout << "Reading out Tokens : " << endl;
     for(auto i : tokenStream) {
         cout << "Token is: " << i.second << endl;
+
+        if(i.first == TokenType::ARITHOP) {
+            cout << "WE got Airthop" << endl;
+        }
     }
+
+
 
 }
 
