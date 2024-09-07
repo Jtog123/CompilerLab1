@@ -17,7 +17,6 @@ using namespace std;
 Scanner::Scanner(const string& filePath)  {
     // open the file
     inputFile.open(filePath);
-    cout << "eof?" << inputFile.eof()<< endl;
     if(!inputFile) {
         cerr << "No input file or error opening input file: " << filePath << endl;
         exit(65);
@@ -75,15 +74,29 @@ void Scanner::readFile() {
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
         }
-        // Words what start with L {LOAD, LOADL, lSHIFT}
+        else if(currentChar == '/') {
+            inputFile.get();
+            if(matchNextChar('/')) {
+                cout << "Comment" << endl;
+                tokenStream.push_back({COMMENT, "//"});
+                //Encounter a comment get the whole line till we reach a new line?
+                while(inputFile.peek() != '\n') {
+                    inputFile.get();
+                }
+            }
+            else {
+                //unget initial slash ??
+            }
+        }
+        // Words what start with L {LOAD, LOADI, lSHIFT}
         else if (currentChar == 'l'){
             inputFile.get();
             if(matchNextChar('o') && matchNextChar('a') && matchNextChar('d')){
 
                 //Check for accetped state LOADL
-                if(matchNextChar('i')) {
-                    cout << "Got LOADL" << endl;
-                    tokenStream.push_back({LOADl, "loadi"});
+                if(matchNextChar('I')) {
+                    cout << "Got LOADI" << endl;
+                    tokenStream.push_back({LOADI, "loadi"});
                 } else {
                     cout << "Got LOAD" << endl;
                     tokenStream.push_back({MEMOP, "load"});
@@ -130,6 +143,7 @@ void Scanner::readFile() {
         else if(currentChar == 'n') {
             inputFile.get();
             if(matchNextChar('o') && matchNextChar('p')) {
+                cout << "Got nop" << endl;
                 tokenStream.push_back({NOP, "nop"});
             }
         }
@@ -138,6 +152,7 @@ void Scanner::readFile() {
             inputFile.get();
             if(matchNextChar('u') && matchNextChar('t') && matchNextChar('p')
                 && matchNextChar('u') && matchNextChar('t')) {
+                cout << "Got output" << endl;
                 tokenStream.push_back({OUTPUT, "output"});
 
             }

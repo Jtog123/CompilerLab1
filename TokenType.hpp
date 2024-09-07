@@ -7,7 +7,7 @@
 
 enum TokenType{
     MEMOP, // 0
-    LOADl, // 1
+    LOADI, // 1
     ARITHOP, // 2
     OUTPUT, // 3
     NOP, // 4
@@ -17,6 +17,7 @@ enum TokenType{
     INTO, // 8
     EOF_, // 9
     EOL, // 10
+    COMMENT // 11
 
 };
 
