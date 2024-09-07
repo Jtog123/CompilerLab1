@@ -1,4 +1,3 @@
-In your scanner that needs to recognize ILOC instructions, a **token** is typically represented as a pair consisting of:
 
 1. **Part of Speech** (Token Type): This refers to the classification of the lexeme. It's the category that the word or symbol falls into based on the language grammar. In a scanner for ILOC, this could be things like:
    - `REGISTER`
