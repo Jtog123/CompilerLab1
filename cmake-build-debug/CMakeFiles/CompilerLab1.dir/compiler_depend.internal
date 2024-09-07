@@ -156,6 +156,7 @@ CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj
  C:/Program Files/JetBrains/CLion 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wchar.h
  C:/Program Files/JetBrains/CLion 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wctype.h
  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp
+ C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp
 
 CMakeFiles/CompilerLab1.dir/main.cpp.obj
  C:/Users/jtog8/Documents/CompilerLab1/main.cpp
@@ -312,4 +313,5 @@ CMakeFiles/CompilerLab1.dir/main.cpp.obj
  C:/Program Files/JetBrains/CLion 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wchar.h
  C:/Program Files/JetBrains/CLion 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wctype.h
  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp
+ C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp
 

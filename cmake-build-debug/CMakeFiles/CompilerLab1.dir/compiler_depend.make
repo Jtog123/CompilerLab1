@@ -154,7 +154,8 @@ CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj: C:/Users/jtog8/Documents/CompilerLa
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wctype.h \
-  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp
+  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp \
+  C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp
 
 CMakeFiles/CompilerLab1.dir/main.cpp.obj: C:/Users/jtog8/Documents/CompilerLab1/main.cpp \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward/binders.h \
@@ -309,7 +310,8 @@ CMakeFiles/CompilerLab1.dir/main.cpp.obj: C:/Users/jtog8/Documents/CompilerLab1/
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/x86_64-w64-mingw32/include/wctype.h \
-  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp
+  C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp \
+  C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp
 
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/basic_ios.tcc:
@@ -511,6 +513,8 @@ C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32
 C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/stdlib.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/streambuf:
+
+C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.3.2/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/string:
 

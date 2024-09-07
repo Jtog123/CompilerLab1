@@ -88,6 +88,9 @@
 		<Unit filename="C:/Users/jtog8/Documents/CompilerLab1/Scanner.hpp">
 			<Option target="CompilerLab1"/>
 		</Unit>
+		<Unit filename="C:/Users/jtog8/Documents/CompilerLab1/TokenType.hpp">
+			<Option target="CompilerLab1"/>
+		</Unit>
 		<Unit filename="C:/Users/jtog8/Documents/CompilerLab1/main.cpp">
 			<Option target="CompilerLab1"/>
 		</Unit>

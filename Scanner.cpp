@@ -8,6 +8,12 @@
 
 using namespace std;
 
+/*
+ * Recognize all keywords
+ * Assign value to each operation
+ * Build tokens?
+ */
+
 Scanner::Scanner(const string& filePath)  {
     // open the file
     inputFile.open(filePath);
@@ -18,6 +24,7 @@ Scanner::Scanner(const string& filePath)  {
     }
 }
 
+//Helper function how badly does the cost modulartity and readability affect the compiler?
 bool Scanner::matchNextChar(char expectedChar) {
     char currentChar = inputFile.peek();
     if(currentChar == expectedChar) {
@@ -32,8 +39,16 @@ void Scanner::readFile() {
     //char currentChar = inputFile.peek();
     //cout<< currentChar;
 
+    //<type of operation, actual characters that where matched in stream>
+
     while(! inputFile.eof()) {
         char currentChar = inputFile.peek();
+
+        if(currentChar == '\n') {
+            cout << "END OF LINE" << endl;
+            inputFile.get();
+            tokenStream.push_back({EOL, "\\n"});
+        }
 
         // WORDS THAT START WITH S
         if(currentChar == 's') {
@@ -42,10 +57,12 @@ void Scanner::readFile() {
             if(matchNextChar('t') && matchNextChar('o') && matchNextChar('r')
                 && matchNextChar('e')) {
                 cout << "Got STORE" << endl;
+                tokenStream.push_back({MEMOP, "store"});
             }
             // Looking for SUB
             else if(matchNextChar('u') && matchNextChar('b')) {
                 cout << "Got SUB" << endl;
+                tokenStream.push_back({ARITHOP, "sub"});
 
             }
             else {
@@ -63,14 +80,20 @@ void Scanner::readFile() {
                 //Check for accetped state LOADL
                 if(matchNextChar('l')) {
                     cout << "Got LOADL" << endl;
+                    tokenStream.push_back({LOADl, "loadl"});
                 } else {
                     cout << "Got LOAD" << endl;
+                    tokenStream.push_back({MEMOP, "load"});
                 }
 
             }
             else if (matchNextChar('s') && matchNextChar('h') && matchNextChar('i') && matchNextChar('f') &&
                     matchNextChar('t')) {
                 cout << "Got lshift" << endl;
+                tokenStream.push_back({ARITHOP, "lshift"});
+            }
+            else {
+                //unget?
             }
         }
         // Words what start with R {RSHIFT}
@@ -98,6 +121,11 @@ void Scanner::readFile() {
             cout << "nothing now" << endl;
         }
 
+    }
+
+    //enum read as an int
+    for(auto i : tokenStream) {
+        cout << "Token is: " << i.second << endl;
     }
 
 }
