@@ -21,6 +21,7 @@ class Scanner {
     public:
         Scanner(const string& filePath);
         void readFile();
+        bool matchNextChar(char);
 };
 
 
