@@ -51,7 +51,7 @@ void Scanner::readFile() {
                         }
                     } else {
                         inputFile.get();
-                        cout << 'Not r' << endl;
+                        cout << "Not r" << endl;
                     }
                 } else {
                     inputFile.get();
@@ -83,19 +83,19 @@ void Scanner::readFile() {
         else if( currentChar == 'r') {
 
         }
-        // Words what start with R {MULT}
+        // Words what start with M {MULT}
         else if (currentChar == 'm') {
 
         }
-        // Words what start with R {ADD}
+        // Words what start with A {ADD}
         else if(currentChar == 'a') {
 
         }
-        // Words what start with R {NOP}
+        // Words what start with N {NOP}
         else if(currentChar == 'n') {
 
         }
-        // Words what start with R {OUTPUT}
+        // Words what start with O {OUTPUT}
         else if (currentChar == 'o') {
 
         }
