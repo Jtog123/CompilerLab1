@@ -1,4 +1,5 @@
+store 22 => r2
 sub r1,r2 => r3
 loadl 1024 => r1
 load 1024 => r1
-store 22 => r2
+

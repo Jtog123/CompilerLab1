@@ -44,12 +44,6 @@ void Scanner::readFile() {
     while(! inputFile.eof()) {
         char currentChar = inputFile.peek();
 
-        if(currentChar == '\n') {
-            cout << "END OF LINE" << endl;
-            inputFile.get();
-            tokenStream.push_back({EOL, "\\n"});
-        }
-
         // WORDS THAT START WITH S
         if(currentChar == 's') {
             inputFile.get();
@@ -71,6 +65,12 @@ void Scanner::readFile() {
 
             }
 
+        }
+        // check for new lines
+        else if (currentChar == '\n') {
+            cout << "END OF LINE" << endl;
+            inputFile.get();
+            tokenStream.push_back({EOL, "\\n"});
         }
         // Words what start with L {LOAD, LOADL, lSHIFT}
         else if (currentChar == 'l'){
