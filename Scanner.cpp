@@ -74,6 +74,15 @@ void Scanner::readFile() {
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
         }
+        else if(currentChar == ' ') {
+            cout << "Whitespace" << endl;
+            inputFile.get();
+        }
+        else if(currentChar == ',') {
+            cout << "Comma" << endl;
+            inputFile.get();
+            tokenStream.push_back({COMMA, ","});
+        }
         else if(currentChar == '/') {
             inputFile.get();
             if(matchNextChar('/')) {
@@ -86,6 +95,16 @@ void Scanner::readFile() {
             }
             else {
                 //unget initial slash ??
+            }
+        }
+        else if(currentChar == '=') {
+            inputFile.get();
+            if(matchNextChar('>')) {
+                cout << "Got Into" << endl;
+                tokenStream.push_back({INTO,"=>"});
+            }
+            else {
+                //undo?
             }
         }
         // Words what start with L {LOAD, LOADI, lSHIFT}
@@ -122,6 +141,24 @@ void Scanner::readFile() {
                 tokenStream.push_back({ARITHOP, "rshift"});
 
             }
+            else {
+                string registerName = "r";
+                while(isdigit(inputFile.peek())) {
+
+                    registerName += inputFile.peek();
+                    inputFile.get();
+                }
+                cout << registerName << endl;
+                tokenStream.push_back({REGISTER, registerName});
+            }
+
+
+
+
+
+            //convert char to string check if its a number
+
+
         }
         // Words what start with M {MULT}
         else if (currentChar == 'm') {
