@@ -15,7 +15,7 @@ enum TokenType{
     REGISTER, // 6
     COMMA, // 7
     INTO, // 8
-    EOF_, // 9
+    _EOF, // 9
     EOL, // 10
     COMMENT // 11
 

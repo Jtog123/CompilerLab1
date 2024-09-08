@@ -16,7 +16,8 @@ using namespace std;
 class Scanner {
     private:
         ifstream inputFile;
-        int test;
+        int _lineNumber = 1;
+        bool validateSpacing();
 
 
     public:

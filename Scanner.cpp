@@ -23,6 +23,10 @@ Scanner::Scanner(const string& filePath)  {
     }
 }
 
+bool Scanner::validateSpacing() {
+    return matchNextChar(' ');
+}
+
 //Helper function how badly does the cost modulartity and readability affect the compiler?
 bool Scanner::matchNextChar(char expectedChar) {
     char currentChar = inputFile.peek();
@@ -31,6 +35,10 @@ bool Scanner::matchNextChar(char expectedChar) {
     }
     return currentChar == expectedChar;
 }
+
+//read errors
+
+//report errors
 
 void Scanner::readFile() {
     // while we are not at the end of the file
@@ -49,6 +57,7 @@ void Scanner::readFile() {
             cout << "END OF LINE" << endl;
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
+            _lineNumber++;
         }
         else if(currentChar == ' ') {
             cout << "Whitespace" << endl;
@@ -98,8 +107,17 @@ void Scanner::readFile() {
             // Looking for STORE
             if(matchNextChar('t') && matchNextChar('o') && matchNextChar('r')
                 && matchNextChar('e')) {
-                cout << "Got STORE" << endl;
-                tokenStream.push_back({MEMOP, "store"});
+
+                //After each word if next char is not a space report an error sith the line number
+                if(validateSpacing()) {
+                    cout << "Got STORE" << endl;
+                    tokenStream.push_back({MEMOP, "store"});
+                }
+                else {
+                    cout << "Syntax Error on line: " << _lineNumber << " did you mean store?" << endl;
+                }
+
+
             }
             // Looking for SUB
             else if(matchNextChar('u') && matchNextChar('b')) {
@@ -211,7 +229,7 @@ void Scanner::readFile() {
         }
 
     }
-
+    tokenStream.push_back({_EOF, "eof"});
     //enum read as an int
     cout << endl;
     cout << "Reading out Tokens : " << endl;
@@ -222,6 +240,8 @@ void Scanner::readFile() {
             cout << "WE got Airthop" << endl;
         }
     }
+
+
 
 
 
