@@ -1,12 +1,12 @@
 store 22 => r2
 sub r1,r2 => r3
-loadi 1024 => r1
+loadI 1024 => r1
 load 1024 => r1
 // rooooo
 add r1,r2 => r4
-loadi 1 => r0
-loadi 1 => r1
-loadi 4 => r2
+loadI 1 => r0
+loadI 1 => r1
+loadI 4 => r2
 add r0, 1 => r4
 add r1, 1 => r1
 loadi 0 => r6

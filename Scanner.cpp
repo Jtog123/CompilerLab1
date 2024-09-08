@@ -44,32 +44,8 @@ void Scanner::readFile() {
         char currentChar = inputFile.peek();
 
         // WORDS THAT START WITH S
-        if(currentChar == 's') {
-            inputFile.get();
-            // Looking for STORE
-            if(matchNextChar('t') && matchNextChar('o') && matchNextChar('r')
-                && matchNextChar('e')) {
-                cout << "Got STORE" << endl;
-                tokenStream.push_back({MEMOP, "store"});
-            }
-            // Looking for SUB
-            else if(matchNextChar('u') && matchNextChar('b')) {
-                cout << "Got SUB" << endl;
-                tokenStream.push_back({ARITHOP, "sub"});
-
-            }
-            else {
-                //on broken input files, I may need to initzilize and int and keep a count every time a new identifier is found
-                // unget up to the count
-                // every white space reset the count?
-                // may have to call unget() here to put chars back in the stream
-                // unget can be used multiple time essentially unwinding the stream characters i've gotten
-
-            }
-
-        }
         // check for new lines
-        else if (currentChar == '\n') {
+        if (currentChar == '\n') {
             cout << "END OF LINE" << endl;
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
@@ -107,6 +83,41 @@ void Scanner::readFile() {
                 //undo?
             }
         }
+        // get integers
+        else if (isdigit(currentChar)) {
+            string number;
+            while(isdigit(inputFile.peek())) {
+                number += inputFile.peek();
+                inputFile.get();
+            }
+            cout << "Got number: " << number << endl;
+            tokenStream.push_back({CONSTANT, number});
+        }
+        else if(currentChar == 's') {
+            inputFile.get();
+            // Looking for STORE
+            if(matchNextChar('t') && matchNextChar('o') && matchNextChar('r')
+                && matchNextChar('e')) {
+                cout << "Got STORE" << endl;
+                tokenStream.push_back({MEMOP, "store"});
+            }
+            // Looking for SUB
+            else if(matchNextChar('u') && matchNextChar('b')) {
+                cout << "Got SUB" << endl;
+                tokenStream.push_back({ARITHOP, "sub"});
+
+            }
+            else {
+                //on broken input files, I may need to initzilize and int and keep a count every time a new identifier is found
+                // unget up to the count
+                // every white space reset the count?
+                // may have to call unget() here to put chars back in the stream
+                // unget can be used multiple time essentially unwinding the stream characters i've gotten
+
+            }
+
+        }
+
         // Words what start with L {LOAD, LOADI, lSHIFT}
         else if (currentChar == 'l'){
             inputFile.get();
