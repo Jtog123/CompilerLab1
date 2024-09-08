@@ -73,7 +73,8 @@ void Scanner::readFile() {
             if(matchNextChar('/')) {
                 cout << "Comment" << endl;
                 tokenStream.push_back({COMMENT, "//"});
-                //Encounter a comment get the whole line till we reach a new line?
+
+                //Encounter a comment get the whole line till we reach a new line
                 while(inputFile.peek() != '\n') {
                     inputFile.get();
                 }
@@ -109,6 +110,7 @@ void Scanner::readFile() {
                 && matchNextChar('e')) {
 
                 //After each word if next char is not a space report an error sith the line number
+                // Error should probably be thrown here
                 if(validateSpacing()) {
                     cout << "Got STORE" << endl;
                     tokenStream.push_back({MEMOP, "store"});
