@@ -1,0 +1,59 @@
+file 1
+//10a should be 10 look at next char if there is no space
+//ra2 should be r2 look at char after r if not a digit report error
+
+file 2
+good
+
+file 3
+good
+
+file 4
+should be good
+
+file 5
+LoadI should just be an int (load int ) line 7
+line 9 adding a register and an int
+line 10 putting two registers into 5
+line 11 adding nothing putting it into r6
+line 12 storing r6 into nothing
+
+file 6
+same as 5
+// This file ends without a final newline
+
+file 7
+listed in file
+
+file 8
+good
+
+file 9
+line 7 no into =>
+line 8 needs destination
+line 9 no int
+10 needs into
+11 needs destination
+12 needs another register
+13 needs comma and two args
+14 needs comaa and two args
+15 needs two args
+
+
+isdig
+
+            string number;
+
+            while(!inputFile.eof() && isdigit(inputFile.peek())) {
+                //keep builing the number
+                number += inputFile.peek();
+                inputFile.get();
+            }
+
+            if(inputFile.peek() != ' ' && inputFile.peek() != ',' && inputFile.peek() != '\n' ) {
+                    cout << "Syntax error on Line: " << _lineNumber << endl;
+                    inputFile.get();
+            } else {
+                cout << "Got number: " << number << endl;
+                tokenStream.push_back({CONSTANT, number});
+            }

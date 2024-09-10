@@ -1,3 +1,4 @@
+    addI r1,ra2 => rb3
 // COMP 342, Principles of Compilers
 // ILOC Front End
 //
@@ -7,5 +8,5 @@
   load  r1 => r1
 // The scanner should find and report these errors.
 // There is no single correct way of scanning or reporting them.
-    addI r1,ra2 => rb3
+
 

@@ -13,5 +13,3 @@ store r6 =>
 // This file ends without a final newline
 output 20
 
-line 7 loadi r24 into r3, commading shouldnt have an r in front fo 24
-line 9 adding r and int

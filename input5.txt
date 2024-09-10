@@ -12,8 +12,3 @@ add   r4, => r6
 store r6 =>
 output 20
 
-LoadI should just be an int (load int ) line 7
-line 9 adding a register and an int
-line 10 putting two registers into 5
-line 11 adding nothing putting it into r6
-line 12 storing r6 into nothing

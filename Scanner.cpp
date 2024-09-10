@@ -99,13 +99,33 @@ void Scanner::readFile() {
         }
         // get integers
         else if (isdigit(currentChar)) {
+            //how do i handle the 10a, i dont want to keep it
+            // only should be pushed back if valid
+
             string number;
+            bool validInt = true;
             while(isdigit(inputFile.peek())) {
                 number += inputFile.peek();
                 inputFile.get();
             }
-            cout << "Got number: " << number << endl;
-            tokenStream.push_back({CONSTANT, number});
+
+            //potential non digit character
+            char nextChar = inputFile.peek();
+
+            if(!isspace(nextChar) && nextChar != '=' && nextChar != ',') {
+                cout << "Syntax error on line: " << _lineNumber << endl;
+                validInt = false;
+
+                //eat characters until a space or newline or end of file
+                while(!isspace(inputFile.peek()) && inputFile.peek() != '/n' && !inputFile.eof()) {
+                    inputFile.get();
+                }
+            }
+            if(validInt) {
+                cout << "got number: " << number << endl;
+                tokenStream.push_back({CONSTANT, number});
+            }
+
         }
         else if(currentChar == 's') {
             inputFile.get();
@@ -177,14 +197,38 @@ void Scanner::readFile() {
 
             }
             else {
-                string registerName = "r";
-                while(isdigit(inputFile.peek())) {
 
-                    registerName += inputFile.peek();
-                    inputFile.get();
+                //its a register
+                string registerName = "r";
+                bool validRegister = true;
+
+                // is char after r a number or not
+                if(inputFile.eof() || ! isdigit(inputFile.peek())) {
+                    cout << "Syntax on line : "<< _lineNumber << " not a valid register discard: " << (char)inputFile.peek() << endl;
+
+                    //eat broken register until we reach a space
+                    while(inputFile.peek() != ' ' && inputFile.eof()) {
+                        inputFile.get();
+                        if(matchNextChar('\n')) {
+                            _lineNumber++;
+                            inputFile.get();
+                        }
+                    }
                 }
-                cout << registerName << endl;
-                tokenStream.push_back({REGISTER, registerName});
+                //we have a valid register
+                else if (isdigit(inputFile.peek())) {
+                    while(isdigit(inputFile.peek())) {
+
+                        registerName += inputFile.peek();
+                        inputFile.get();
+                    }
+                    cout << registerName << endl;
+                    tokenStream.push_back({REGISTER, registerName});
+                }
+
+                //r2a
+
+
             }
 
 
@@ -239,6 +283,8 @@ void Scanner::readFile() {
     //enum read as an int
     cout << endl;
     cout << "Reading out Tokens : " << endl;
+
+
     for(auto i : tokenStream) {
         cout << "Token is: " << i.second << endl;
 
@@ -246,6 +292,8 @@ void Scanner::readFile() {
             cout << "WE got Airthop" << endl;
         }
     }
+
+
 
 
 
