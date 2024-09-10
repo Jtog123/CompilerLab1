@@ -28,4 +28,7 @@ class Scanner {
 };
 
 
+
+
+
 #endif //COMPILERLAB1_SCANNER_HPP

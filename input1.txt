@@ -8,3 +8,6 @@
 // The scanner should find and report these errors.
 // There is no single correct way of scanning or reporting them.
     addI r1,ra2 => rb3
+
+//10a should be 10 look at next char if there is no space
+//ra2 should be r2 look at char after r if not a digit report error

@@ -48,3 +48,285 @@ fixed structure like an array when the
 content does not change, and a map when it
 does (e.g., to map arbitrary strings to
 compact integers).
+
+
+
+#include "Scanner.hpp"
+#include <cstdio>
+#include <iostream>
+
+using namespace std;
+
+class Scanner {
+private:
+    FILE* inputFile;  // Store the file pointer as a class member
+    int _lineNumber = 1;  // Line number for error tracking
+
+    int peek();  // Declare the new peek method
+
+public:
+    vector<pair<TokenType, string>> tokenStream;
+
+    Scanner(const string& filePath);
+    ~Scanner() { fclose(inputFile); }  // Close the file in the destructor
+
+    void readFile();
+    bool matchNextChar(char expectedChar);
+    bool validateSpacing();
+};
+
+// Peek function accessing the file pointer directly from the class
+int Scanner::peek() {
+    int c = getc(inputFile);
+    if (c != EOF) {
+        ungetc(c, inputFile);  // Put the character back into the stream
+    }
+    return c;
+}
+
+Scanner::Scanner(const string& filePath) {
+    // Open the file using C-style I/O
+    inputFile = fopen(filePath.c_str(), "r");
+    if (!inputFile) {
+        cerr << "No input file or error opening input file: " << filePath << endl;
+        exit(65);
+    }
+}
+
+bool Scanner::matchNextChar(char expectedChar) {
+    int currentChar = peek();
+    if (currentChar == expectedChar) {
+        getc(inputFile);  // Move the file pointer
+    }
+    return currentChar == expectedChar;
+}
+
+bool Scanner::validateSpacing() {
+    return matchNextChar(' ');
+}
+
+void Scanner::readFile() {
+    while (!feof(inputFile)) {
+        int currentChar = peek(); or char?
+
+        if (currentChar == '\n') {
+            cout << "END OF LINE" << endl;
+            getc(inputFile);
+            tokenStream.push_back({EOL, "\\n"});
+            _lineNumber++;
+        }
+        else if (currentChar == ' ') {
+            cout << "Whitespace" << endl;
+            getc(inputFile);
+        }
+        else if (currentChar == ',') {
+            cout << "Comma" << endl;
+            getc(inputFile);
+            tokenStream.push_back({COMMA, ","});
+        }
+        else if (currentChar == '/') {
+            getc(inputFile);
+            if (matchNextChar('/')) {
+                cout << "Comment" << endl;
+                tokenStream.push_back({COMMENT, "//"});
+
+                // Skip the rest of the comment line
+                while (peek() != '\n') {
+                    getc(inputFile);
+                }
+            }
+        }
+        else if (currentChar == '=') {
+            getc(inputFile);
+            if (matchNextChar('>')) {
+                cout << "Got Into" << endl;
+                tokenStream.push_back({INTO, "=>"});
+            }
+        }
+        else if (isdigit(currentChar)) {
+            string number;
+            while (isdigit(peek())) {
+                number += getc(inputFile);
+            }
+            cout << "Got number: " << number << endl;
+            tokenStream.push_back({CONSTANT, number});
+        }
+        else if (currentChar == 's') {
+            getc(inputFile);
+            if (matchNextChar('t') && matchNextChar('o') && matchNextChar('r') && matchNextChar('e')) {
+                if (validateSpacing()) {
+                    cout << "Got STORE" << endl;
+                    tokenStream.push_back({MEMOP, "store"});
+                } else {
+                    cout << "Syntax Error on line: " << _lineNumber << " did you mean store?" << endl;
+                }
+            } else if (matchNextChar('u') && matchNextChar('b')) {
+                cout << "Got SUB" << endl;
+                tokenStream.push_back({ARITHOP, "sub"});
+            }
+        }
+        else if (currentChar == 'l') {
+            getc(inputFile);
+            if (matchNextChar('o') && matchNextChar('a') && matchNextChar('d')) {
+                if (matchNextChar('I')) {
+                    cout << "Got LOADI" << endl;
+                    tokenStream.push_back({LOADI, "loadi"});
+                } else {
+                    cout << "Got LOAD" << endl;
+                    tokenStream.push_back({MEMOP, "load"});
+                }
+            } else if (matchNextChar('s') && matchNextChar('h') && matchNextChar('i') && matchNextChar('f') && matchNextChar('t')) {
+                cout << "Got lshift" << endl;
+                tokenStream.push_back({ARITHOP, "lshift"});
+            }
+        }
+        else if (currentChar == 'r') {
+            getc(inputFile);
+            if (matchNextChar('s') && matchNextChar('h') && matchNextChar('i') && matchNextChar('f') && matchNextChar('t')) {
+                cout << "Got RSHIFT" << endl;
+                tokenStream.push_back({ARITHOP, "rshift"});
+            } else {
+                string registerName = "r";
+                while (isdigit(peek())) {
+                    registerName += getc(inputFile);
+                }
+                cout << registerName << endl;
+                tokenStream.push_back({REGISTER, registerName});
+            }
+        }
+        else if (currentChar == 'm') {
+            getc(inputFile);
+            if (matchNextChar('u') && matchNextChar('l') && matchNextChar('t')) {
+                cout << "got mult" << endl;
+                tokenStream.push_back({ARITHOP, "mult"});
+            }
+        }
+        else if (currentChar == 'a') {
+            getc(inputFile);
+            if (matchNextChar('d') && matchNextChar('d')) {
+                cout << "Got Add" << endl;
+                tokenStream.push_back({ARITHOP, "add"});
+            }
+        }
+        else if (currentChar == 'n') {
+            getc(inputFile);
+            if (matchNextChar('o') && matchNextChar('p')) {
+                cout << "Got nop" << endl;
+                tokenStream.push_back({NOP, "nop"});
+            }
+        }
+        else if (currentChar == 'o') {
+            getc(inputFile);
+            if (matchNextChar('u') && matchNextChar('t') && matchNextChar('p') && matchNextChar('u') && matchNextChar('t')) {
+                cout << "Got output" << endl;
+                tokenStream.push_back({OUTPUT, "output"});
+            }
+        }
+        else {
+            getc(inputFile);
+            cout << "nothing now" << endl;
+        }
+    }
+    tokenStream.push_back({_EOF, "eof"});
+    cout << "Reading out Tokens:" << endl;
+    for (auto i : tokenStream) {
+        cout << "Token is: " << i.second << endl;
+    }
+}
+
+
+
+
+///////////////
+
+void Scanner::readFile() {
+    // while we are not at the end of the file
+    // gather each char and look for each word
+    //char currentChar = inputFile.peek();
+    //cout<< currentChar;
+
+    while(! inputFile.eof()) {
+        char currentChar = inputFile.peek();
+
+        // WORDS THAT START WITH S
+        if(currentChar == 's') {
+            inputFile.get();
+            char currentChar = inputFile.peek();
+
+            // Current State: S (T | U)
+            if(currentChar == 't') {
+                inputFile.get();
+                char currentChar = inputFile.peek();
+                if(currentChar == 'o') {
+                    inputFile.get();
+                    char currentChar = inputFile.peek();
+                    if(currentChar == 'r') {
+                        inputFile.get();
+                        char currentChar = inputFile.peek();
+                        if(currentChar == 'e') {
+                            inputFile.get();
+                            cout << "GOT STORE" << endl;
+                        } else {
+                            inputFile.get();
+
+                        }
+                    } else {
+                        inputFile.get();
+                        cout << "Not r" << endl;
+                    }
+                } else {
+                    inputFile.get();
+                    cout << "Not o";
+                }
+
+                // Current State: S (T | U)
+            } else if (currentChar == 'u') {
+                inputFile.get();
+                char currentChar = inputFile.peek();
+                if(currentChar == 'b') {
+                    inputFile.get();
+                    cout << "GOT SUB!" << endl;
+                } else {
+                    inputFile.get();
+                    cout << "Not b" << endl;
+                }
+
+            } else {
+                inputFile.get();
+                cout << "not T" << endl;
+            }
+
+        }
+
+            // Words what start with L {LOAD, LOADL, lSHIFT}
+        else if (currentChar == 'l'){
+            inputFile.get();
+        }
+            // Words what start with R {RSHIFT}
+        else if( currentChar == 'r') {
+
+        }
+            // Words what start with M {MULT}
+        else if (currentChar == 'm') {
+
+        }
+            // Words what start with A {ADD}
+        else if(currentChar == 'a') {
+
+        }
+            // Words what start with N {NOP}
+        else if(currentChar == 'n') {
+
+        }
+            // Words what start with O {OUTPUT}
+        else if (currentChar == 'o') {
+
+        }
+        else {
+            inputFile.get();
+            cout << "nothing now" << endl;
+        }
+
+    }
+
+}

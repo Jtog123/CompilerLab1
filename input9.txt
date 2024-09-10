@@ -15,3 +15,13 @@ add r1 => r3
 add r1,=>r2
 
 output
+
+line 7 no into =>
+line 8 needs destination
+line 9 no int
+10 needs into
+11 needs destination
+12 needs another register
+13 needs comma and two args
+14 needs comaa and two args
+15 needs two args

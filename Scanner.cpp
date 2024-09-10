@@ -9,10 +9,14 @@
 using namespace std;
 
 /*
- * Recognize all keywords
- * Assign value to each operation
- * Build tokens?
+ * Recognize all keywords seems good
+ * handle all errors in each input file
+ * form tokens and push them into container
+ *
+ * Parse?
  */
+
+/////////////////////////////////////
 
 Scanner::Scanner(const string& filePath)  {
     // open the file
@@ -249,96 +253,5 @@ void Scanner::readFile() {
 
 }
 
-/*
-void Scanner::readFile() {
-    // while we are not at the end of the file
-    // gather each char and look for each word
-    //char currentChar = inputFile.peek();
-    //cout<< currentChar;
 
-    while(! inputFile.eof()) {
-        char currentChar = inputFile.peek();
 
-        // WORDS THAT START WITH S
-        if(currentChar == 's') {
-            inputFile.get();
-            char currentChar = inputFile.peek();
-
-            // Current State: S (T | U)
-            if(currentChar == 't') {
-                inputFile.get();
-                char currentChar = inputFile.peek();
-                if(currentChar == 'o') {
-                    inputFile.get();
-                    char currentChar = inputFile.peek();
-                    if(currentChar == 'r') {
-                        inputFile.get();
-                        char currentChar = inputFile.peek();
-                        if(currentChar == 'e') {
-                            inputFile.get();
-                            cout << "GOT STORE" << endl;
-                        } else {
-                            inputFile.get();
-
-                        }
-                    } else {
-                        inputFile.get();
-                        cout << "Not r" << endl;
-                    }
-                } else {
-                    inputFile.get();
-                    cout << "Not o";
-                }
-
-                // Current State: S (T | U)
-            } else if (currentChar == 'u') {
-                inputFile.get();
-                char currentChar = inputFile.peek();
-                if(currentChar == 'b') {
-                    inputFile.get();
-                    cout << "GOT SUB!" << endl;
-                } else {
-                    inputFile.get();
-                    cout << "Not b" << endl;
-                }
-
-            } else {
-                inputFile.get();
-                cout << "not T" << endl;
-            }
-
-        }
-
-            // Words what start with L {LOAD, LOADL, lSHIFT}
-        else if (currentChar == 'l'){
-            inputFile.get();
-        }
-            // Words what start with R {RSHIFT}
-        else if( currentChar == 'r') {
-
-        }
-            // Words what start with M {MULT}
-        else if (currentChar == 'm') {
-
-        }
-            // Words what start with A {ADD}
-        else if(currentChar == 'a') {
-
-        }
-            // Words what start with N {NOP}
-        else if(currentChar == 'n') {
-
-        }
-            // Words what start with O {OUTPUT}
-        else if (currentChar == 'o') {
-
-        }
-        else {
-            inputFile.get();
-            cout << "nothing now" << endl;
-        }
-
-    }
-
-}
- */
