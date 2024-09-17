@@ -7,4 +7,5 @@ add_executable(CompilerLab1 main.cpp
         Scanner.hpp
         Scanner.cpp
         TokenType.hpp
+        t2.i
 )

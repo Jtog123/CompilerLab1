@@ -1,6 +1,7 @@
 file 1
 //10a should be 10 look at next char if there is no space
 //ra2 should be r2 look at char after r if not a digit report error
+// addi unknown command?
 
 file 2
 good
@@ -12,11 +13,14 @@ file 4
 should be good
 
 file 5
-LoadI should just be an int (load int ) line 7
+LoadI should just be an int (load int ) line 7, throw error at r
 line 9 adding a register and an int
 line 10 putting two registers into 5
 line 11 adding nothing putting it into r6
 line 12 storing r6 into nothing
+is line 9 invalid??
+When encounter a bad token remove only that token for exmaple => 5 remove just the 5 and throw error
+thorwing an error would prevent scanning the rest of file is that what we want?
 
 file 6
 same as 5

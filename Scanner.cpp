@@ -62,6 +62,16 @@ void Scanner::readFile() {
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
             _lineNumber++;
+
+            // if we hit a new line check previous operations
+            //int previousOperation = tokenStream.size() - 1;
+            //if(tokenStream[previousOperation].first != TokenType::REGISTER) {
+            //    cout << "Syntax Error on line: " << _lineNumber << " no register specified "<< endl;
+            //}
+
+            //something not working with this
+
+
         }
         else if(currentChar == ' ') {
             cout << "Whitespace" << endl;
@@ -112,19 +122,53 @@ void Scanner::readFile() {
             //potential non digit character
             char nextChar = inputFile.peek();
 
-            if(!isspace(nextChar) && nextChar != '=' && nextChar != ',') {
-                cout << "Syntax error on line: " << _lineNumber << endl;
+            if(nextChar != ' ' && nextChar != '=' && nextChar != ',') {
+                cout << "Syntax error on line invalid Int operation: " << _lineNumber << endl;
                 validInt = false;
 
                 //eat characters until a space or newline or end of file
-                while(!isspace(inputFile.peek()) && inputFile.peek() != '/n' && !inputFile.eof()) {
+                while(!isspace(inputFile.peek()) && inputFile.peek() != '\n' && !inputFile.eof()) {
                     inputFile.get();
                 }
             }
             if(validInt) {
                 cout << "got number: " << number << endl;
-                tokenStream.push_back({CONSTANT, number});
+                //before we push the number back check the operations before it
+                if(tokenStream.size() >= 2) {
+                    int previousOperation = tokenStream.size() - 2;
+                    if(tokenStream[previousOperation].first == TokenType::INTO ||
+                       tokenStream[previousOperation].first == TokenType::REGISTER) {
+                        cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
+                        //get it?
+                        inputFile.get();
+                    }
+                    else {
+                        tokenStream.push_back({CONSTANT, number});
+                    }
+                }
+
             }
+
+
+            //mult  r1, r2 =>5 different kind of error
+            // if we hit a contant and the previos token is an into throw an error
+            // my problem if i encouter this error do i need to toss every token leading up ot that
+            // initially just throw an erro dont remove anything
+            // we can only store into registers, so if its not equal to a register throw an error
+
+            //We have an interger check what operation was before it, if it in an INTO => throw an error
+            // what operations are valid for ints?
+
+            //int previousOperation = tokenStream.size() - 2;
+            //if(tokenStream[previousOperation].first == TokenType::INTO ||
+             //   tokenStream[previousOperation].first == TokenType::REGISTER) {
+             //   cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
+                // FROM THIS POINT MAY HAVE TO REMOVE ALL TOKENS ON THIS LINE FROM TOKENSTREAM
+                // DO I NEED TO REMOVE TOKENS OR JUST THROW AN ERROR?
+
+                //just popping constant at end
+              //  tokenStream.pop_back();
+            //}
 
         }
         else if(currentChar == 's') {
@@ -176,6 +220,8 @@ void Scanner::readFile() {
                     tokenStream.push_back({MEMOP, "load"});
                 }
 
+
+
             }
             else if (matchNextChar('s') && matchNextChar('h') && matchNextChar('i') && matchNextChar('f') &&
                     matchNextChar('t')) {
@@ -226,7 +272,28 @@ void Scanner::readFile() {
                     tokenStream.push_back({REGISTER, registerName});
                 }
 
-                //r2a
+
+                //We encounter a register check which operation is being preformed on the register
+                int registerOperation = tokenStream.size() - 2;
+
+
+
+                if(tokenStream[registerOperation].first != TokenType::ARITHOP &&
+                   tokenStream[registerOperation].first != TokenType::MEMOP &&
+                   tokenStream[registerOperation].first != TokenType::INTO &&
+                   tokenStream[registerOperation].first != TokenType::REGISTER &&
+                   tokenStream[registerOperation].first != TokenType::COMMA) {
+                    cout << "Error Invalid register Operation at line: " << _lineNumber << endl;
+
+                    //pop tokenStream back twice eat the characrers until the newline
+                    //get the characters until we hit a newline
+                    tokenStream.pop_back();
+                    tokenStream.pop_back();
+                    while(inputFile.peek() != '\n') {
+                        inputFile.get();
+                    }
+
+                }
 
 
             }
