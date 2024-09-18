@@ -15,7 +15,11 @@ output 20
 //line 10 error cant store into an integer GOT IT
 //line 9 cant add an register and constant  GOT IT
 //line 7 how to handle that? eat the line is how its handled now. GOT IT ?
-// line 11 not adding anything after comma
-//line 12 not storing anything after into
+//****************
+// line 11 not adding anything after comma, if we get an into an the last token is a comma throw error
+//line 12 if we hit a new line and the last token is an into throw an error
+//****************
+
 line 13 now throwing error why?
+//if we enoucter a new line and last token is not a register or constant throw error
 

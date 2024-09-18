@@ -63,6 +63,8 @@ void Scanner::readFile() {
             tokenStream.push_back({EOL, "\\n"});
             _lineNumber++;
 
+            //check last operation
+
             // if we hit a new line check previous operations
             //int previousOperation = tokenStream.size() - 1;
             //if(tokenStream[previousOperation].first != TokenType::REGISTER) {
@@ -122,7 +124,7 @@ void Scanner::readFile() {
             //potential non digit character
             char nextChar = inputFile.peek();
 
-            if(nextChar != ' ' && nextChar != '=' && nextChar != ',') {
+            if(nextChar != ' ' && nextChar != '=' && nextChar != ',' && nextChar != '\n') {
                 cout << "Syntax error on line invalid Int operation: " << _lineNumber << endl;
                 validInt = false;
 
