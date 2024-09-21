@@ -152,6 +152,30 @@ Scanner.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Scanner.cpp.s
 .PHONY : Scanner.cpp.s
 
+Scanner2.obj: Scanner2.cpp.obj
+.PHONY : Scanner2.obj
+
+# target to build an object file
+Scanner2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Scanner2.cpp.obj
+.PHONY : Scanner2.cpp.obj
+
+Scanner2.i: Scanner2.cpp.i
+.PHONY : Scanner2.i
+
+# target to preprocess a source file
+Scanner2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Scanner2.cpp.i
+.PHONY : Scanner2.cpp.i
+
+Scanner2.s: Scanner2.cpp.s
+.PHONY : Scanner2.s
+
+# target to generate assembly for a file
+Scanner2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Scanner2.cpp.s
+.PHONY : Scanner2.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -188,6 +212,9 @@ help:
 	@echo ... Scanner.obj
 	@echo ... Scanner.i
 	@echo ... Scanner.s
+	@echo ... Scanner2.obj
+	@echo ... Scanner2.i
+	@echo ... Scanner2.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

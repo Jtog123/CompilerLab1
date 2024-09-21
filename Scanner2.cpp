@@ -2,7 +2,7 @@
 // Created by jtog8 on 9/5/2024.
 //
 
-#include "Scanner.hpp"
+#include "Scanner2.hpp"
 #include <fstream>
 #include <iostream>
 
@@ -18,7 +18,7 @@ using namespace std;
 
 /////////////////////////////////////
 
-Scanner::Scanner(const string& filePath)  {
+Scanner2::Scanner2(const string& filePath)  {
     // open the file
     inputFile.open(filePath);
     if(!inputFile) {
@@ -27,12 +27,12 @@ Scanner::Scanner(const string& filePath)  {
     }
 }
 
-bool Scanner::validateSpacing() {
+bool Scanner2::validateSpacing() {
     return matchNextChar(' ');
 }
 
 //Helper function how badly does the cost modulartity and readability affect the compiler?
-bool Scanner::matchNextChar(char expectedChar) {
+bool Scanner2::matchNextChar(char expectedChar) {
     char currentChar = inputFile.peek();
     if(currentChar == expectedChar) {
         inputFile.get();
@@ -44,7 +44,7 @@ bool Scanner::matchNextChar(char expectedChar) {
 
 //report errors
 
-void Scanner::readFile() {
+void Scanner2::readFile() {
     // while we are not at the end of the file
     // gather each char and look for each word
     //char currentChar = inputFile.peek();
@@ -118,7 +118,7 @@ void Scanner::readFile() {
                 //undo?
             }
         }
-            // get integers
+        // get integers
         else if (isdigit(currentChar)) {
             //how do i handle the 10a, i dont want to keep it
             // only should be pushed back if valid
@@ -183,13 +183,13 @@ void Scanner::readFile() {
 
             //int previousOperation = tokenStream.size() - 2;
             //if(tokenStream[previousOperation].first == TokenType::INTO ||
-            //   tokenStream[previousOperation].first == TokenType::REGISTER) {
-            //   cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
-            // FROM THIS POINT MAY HAVE TO REMOVE ALL TOKENS ON THIS LINE FROM TOKENSTREAM
-            // DO I NEED TO REMOVE TOKENS OR JUST THROW AN ERROR?
+             //   tokenStream[previousOperation].first == TokenType::REGISTER) {
+             //   cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
+                // FROM THIS POINT MAY HAVE TO REMOVE ALL TOKENS ON THIS LINE FROM TOKENSTREAM
+                // DO I NEED TO REMOVE TOKENS OR JUST THROW AN ERROR?
 
-            //just popping constant at end
-            //  tokenStream.pop_back();
+                //just popping constant at end
+              //  tokenStream.pop_back();
             //}
 
         }
@@ -197,7 +197,7 @@ void Scanner::readFile() {
             inputFile.get();
             // Looking for STORE
             if(matchNextChar('t') && matchNextChar('o') && matchNextChar('r')
-               && matchNextChar('e')) {
+                && matchNextChar('e')) {
 
                 //After each word if next char is not a space report an error sith the line number
                 // Error should probably be thrown here
@@ -211,7 +211,7 @@ void Scanner::readFile() {
 
 
             }
-                // Looking for SUB
+            // Looking for SUB
             else if(matchNextChar('u') && matchNextChar('b')) {
                 cout << "Got SUB" << endl;
                 tokenStream.push_back({ARITHOP, "sub"});
@@ -228,7 +228,7 @@ void Scanner::readFile() {
 
         }
 
-            // Words what start with L {LOAD, LOADI, lSHIFT}
+        // Words what start with L {LOAD, LOADI, lSHIFT}
         else if (currentChar == 'l'){
             inputFile.get();
             if(matchNextChar('o') && matchNextChar('a') && matchNextChar('d')){
@@ -246,7 +246,7 @@ void Scanner::readFile() {
 
             }
             else if (matchNextChar('s') && matchNextChar('h') && matchNextChar('i') && matchNextChar('f') &&
-                     matchNextChar('t')) {
+                    matchNextChar('t')) {
                 cout << "Got lshift" << endl;
                 tokenStream.push_back({ARITHOP, "lshift"});
             }
@@ -255,11 +255,11 @@ void Scanner::readFile() {
                 //unget?
             }
         }
-            // Words what start with R {RSHIFT}
+        // Words what start with R {RSHIFT}
         else if( currentChar == 'r') {
             inputFile.get();
             if(matchNextChar('s') && matchNextChar('h') && matchNextChar('i')
-               && matchNextChar('f') && matchNextChar('t')) {
+                && matchNextChar('f') && matchNextChar('t')) {
                 cout << "Got RSHIFT" << endl;
                 tokenStream.push_back({ARITHOP, "rshift"});
 
@@ -274,8 +274,15 @@ void Scanner::readFile() {
                     cout << "Syntax on line : "<< _lineNumber << " not a valid register discard: " << (char)inputFile.peek() << endl;
 
                     //eat broken register until we reach a space
+                    while(inputFile.peek() != ' ' && inputFile.eof()) {
+                        inputFile.get();
+                        if(matchNextChar('\n')) {
+                            _lineNumber++;
+                            inputFile.get();
+                        }
+                    }
                 }
-                    //we have a valid register
+                //we have a valid register
                 else if (isdigit(inputFile.peek())) {
                     while(isdigit(inputFile.peek())) {
 
@@ -290,6 +297,8 @@ void Scanner::readFile() {
                 //We encounter a register check which operation is being preformed on the register
                 int registerOperation = tokenStream.size() - 2;
 
+
+
                 if(tokenStream[registerOperation].first != TokenType::ARITHOP &&
                    tokenStream[registerOperation].first != TokenType::MEMOP &&
                    tokenStream[registerOperation].first != TokenType::INTO &&
@@ -297,6 +306,13 @@ void Scanner::readFile() {
                    tokenStream[registerOperation].first != TokenType::COMMA) {
                     cout << "Error Invalid register Operation at line: " << _lineNumber << endl;
 
+                    //pop tokenStream back twice eat the characrers until the newline
+                    //get the characters until we hit a newline
+                    tokenStream.pop_back();
+                    tokenStream.pop_back();
+                    while(inputFile.peek() != '\n') {
+                        inputFile.get();
+                    }
 
                 }
 
@@ -311,7 +327,7 @@ void Scanner::readFile() {
 
 
         }
-            // Words what start with M {MULT}
+        // Words what start with M {MULT}
         else if (currentChar == 'm') {
             inputFile.get();
             if(matchNextChar('u') && matchNextChar('l') && matchNextChar('t')) {
@@ -319,7 +335,7 @@ void Scanner::readFile() {
                 tokenStream.push_back({ARITHOP, "mult"});
             }
         }
-            // Words what start with A {ADD}
+        // Words what start with A {ADD}
         else if(currentChar == 'a') {
             inputFile.get();
             if(matchNextChar('d') && matchNextChar('d')) {
@@ -327,7 +343,7 @@ void Scanner::readFile() {
                 tokenStream.push_back({ARITHOP, "add"});
             }
         }
-            // Words what start with N {NOP}
+        // Words what start with N {NOP}
         else if(currentChar == 'n') {
             inputFile.get();
             if(matchNextChar('o') && matchNextChar('p')) {
@@ -335,11 +351,11 @@ void Scanner::readFile() {
                 tokenStream.push_back({NOP, "nop"});
             }
         }
-            // Words what start with O {OUTPUT}
+        // Words what start with O {OUTPUT}
         else if (currentChar == 'o') {
             inputFile.get();
             if(matchNextChar('u') && matchNextChar('t') && matchNextChar('p')
-               && matchNextChar('u') && matchNextChar('t')) {
+                && matchNextChar('u') && matchNextChar('t')) {
                 cout << "Got output" << endl;
                 tokenStream.push_back({OUTPUT, "output"});
 

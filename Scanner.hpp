@@ -14,17 +14,17 @@
 using namespace std;
 
 class Scanner {
-    private:
-        ifstream inputFile;
-        int _lineNumber = 1;
-        bool validateSpacing();
+private:
+    ifstream inputFile;
+    int _lineNumber = 1;
+    bool validateSpacing();
 
 
-    public:
-        Scanner(const string& filePath);
-        void readFile();
-        bool matchNextChar(char);
-        vector<pair <TokenType, string> > tokenStream;  // TokenType, lexeme
+public:
+    Scanner(const string& filePath);
+    void readFile();
+    bool matchNextChar(char);
+    vector<pair <TokenType, string> > tokenStream;  // TokenType, lexeme
 };
 
 

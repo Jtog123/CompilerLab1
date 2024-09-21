@@ -1,2 +1,3 @@
 add   r2, 3 => r4
 mult  r1, r2 =>5
+add   r4, => r6
