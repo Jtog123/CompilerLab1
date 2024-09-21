@@ -10,4 +10,6 @@ add_executable(CompilerLab1 main.cpp
         t2.i
         Scanner.hpp
         Scanner.cpp
+        Parser.hpp
+        Parser.cpp
 )

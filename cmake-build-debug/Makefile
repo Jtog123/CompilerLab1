@@ -128,6 +128,30 @@ CompilerLab1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/build
 .PHONY : CompilerLab1/fast
 
+Parser.obj: Parser.cpp.obj
+.PHONY : Parser.obj
+
+# target to build an object file
+Parser.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Parser.cpp.obj
+.PHONY : Parser.cpp.obj
+
+Parser.i: Parser.cpp.i
+.PHONY : Parser.i
+
+# target to preprocess a source file
+Parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Parser.cpp.i
+.PHONY : Parser.cpp.i
+
+Parser.s: Parser.cpp.s
+.PHONY : Parser.s
+
+# target to generate assembly for a file
+Parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\CompilerLab1.dir\build.make CMakeFiles/CompilerLab1.dir/Parser.cpp.s
+.PHONY : Parser.cpp.s
+
 Scanner.obj: Scanner.cpp.obj
 .PHONY : Scanner.obj
 
@@ -209,6 +233,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... CompilerLab1
+	@echo ... Parser.obj
+	@echo ... Parser.i
+	@echo ... Parser.s
 	@echo ... Scanner.obj
 	@echo ... Scanner.i
 	@echo ... Scanner.s

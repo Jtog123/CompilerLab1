@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "C:/Users/jtog8/Documents/CompilerLab1/Parser.cpp" "CMakeFiles/CompilerLab1.dir/Parser.cpp.obj" "gcc" "CMakeFiles/CompilerLab1.dir/Parser.cpp.obj.d"
   "C:/Users/jtog8/Documents/CompilerLab1/Scanner.cpp" "CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj" "gcc" "CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj.d"
   "C:/Users/jtog8/Documents/CompilerLab1/Scanner2.cpp" "CMakeFiles/CompilerLab1.dir/Scanner2.cpp.obj" "gcc" "CMakeFiles/CompilerLab1.dir/Scanner2.cpp.obj.d"
   "C:/Users/jtog8/Documents/CompilerLab1/main.cpp" "CMakeFiles/CompilerLab1.dir/main.cpp.obj" "gcc" "CMakeFiles/CompilerLab1.dir/main.cpp.obj.d"

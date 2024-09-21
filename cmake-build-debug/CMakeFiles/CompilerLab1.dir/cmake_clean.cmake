@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/CompilerLab1.dir/Parser.cpp.obj"
+  "CMakeFiles/CompilerLab1.dir/Parser.cpp.obj.d"
   "CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj"
   "CMakeFiles/CompilerLab1.dir/Scanner.cpp.obj.d"
   "CMakeFiles/CompilerLab1.dir/Scanner2.cpp.obj"

@@ -40,39 +40,21 @@ bool Scanner::matchNextChar(char expectedChar) {
     return currentChar == expectedChar;
 }
 
-//read errors
 
-//report errors
 
 void Scanner::readFile() {
     // while we are not at the end of the file
     // gather each char and look for each word
-    //char currentChar = inputFile.peek();
-    //cout<< currentChar;
-
-    //<type of operation, actual characters that where matched in stream>
 
     while(! inputFile.eof()) {
         char currentChar = inputFile.peek();
 
-        // WORDS THAT START WITH S
         // check for new lines
         if (currentChar == '\n') {
             cout << "END OF LINE" << endl;
             inputFile.get();
             tokenStream.push_back({EOL, "\\n"});
             _lineNumber++;
-
-            //check last operation
-
-            // if we hit a new line check previous operations
-            //int previousOperation = tokenStream.size() - 1;
-            //if(tokenStream[previousOperation].first != TokenType::REGISTER) {
-            //    cout << "Syntax Error on line: " << _lineNumber << " no register specified "<< endl;
-            //}
-
-            //something not working with this
-
 
         }
         else if(currentChar == ' ') {
@@ -114,44 +96,37 @@ void Scanner::readFile() {
 
 
             }
-            else {
-                //undo?
-            }
         }
-            // get integers
+        // if we get a number
         else if (isdigit(currentChar)) {
-            //how do i handle the 10a, i dont want to keep it
-            // only should be pushed back if valid
 
             string number;
             bool validInt = true;
             while(isdigit(inputFile.peek())) {
                 number += inputFile.peek();
-
-
                 inputFile.get();
-
-
             }
 
             //potential non digit character
             char nextChar = inputFile.peek();
 
             //input file 5 throwing an error for line 10
-            if(nextChar == '\n') {
-                _lineNumber++;
-                tokenStream.push_back({TokenType::EOL, "\\n"});
-            }
+            //if(nextChar == '\n') {
+            //    _lineNumber++;
+            //    tokenStream.push_back({TokenType::EOL, "\\n"});
+            //}
 
             if(nextChar != ' ' && nextChar != '=' && nextChar != ',' && nextChar != '\n') {
                 cout << "Syntax error on line invalid Int operation: " << _lineNumber << endl;
-                validInt = false;
+                //validInt = false;
 
                 //eat characters until a space or newline or end of file
-                while(!isspace(inputFile.peek()) && inputFile.peek() != '\n' && !inputFile.eof()) {
-                    inputFile.get();
-                }
+                //while(!isspace(inputFile.peek()) && inputFile.peek() != '\n' && !inputFile.eof()) {
+                //    inputFile.get();
+                //}
             }
+            tokenStream.push_back({CONSTANT, number});
+            /*
             if(validInt) {
                 cout << "got number: " << number << endl;
                 //before we push the number back check the operations before it
@@ -161,7 +136,6 @@ void Scanner::readFile() {
                        tokenStream[previousOperation].first == TokenType::REGISTER) {
                         cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
                         //get it?
-                        inputFile.get();
 
                     }
                     else {
@@ -170,29 +144,10 @@ void Scanner::readFile() {
                 }
 
             }
-
-
-            //mult  r1, r2 =>5 different kind of error
-            // if we hit a contant and the previos token is an into throw an error
-            // my problem if i encouter this error do i need to toss every token leading up ot that
-            // initially just throw an erro dont remove anything
-            // we can only store into registers, so if its not equal to a register throw an error
-
-            //We have an interger check what operation was before it, if it in an INTO => throw an error
-            // what operations are valid for ints?
-
-            //int previousOperation = tokenStream.size() - 2;
-            //if(tokenStream[previousOperation].first == TokenType::INTO ||
-            //   tokenStream[previousOperation].first == TokenType::REGISTER) {
-            //   cout << "Syntax Error on line: " << _lineNumber << " invalid register operation" << endl;
-            // FROM THIS POINT MAY HAVE TO REMOVE ALL TOKENS ON THIS LINE FROM TOKENSTREAM
-            // DO I NEED TO REMOVE TOKENS OR JUST THROW AN ERROR?
-
-            //just popping constant at end
-            //  tokenStream.pop_back();
-            //}
+             */
 
         }
+        //Words that start with s
         else if(currentChar == 's') {
             inputFile.get();
             // Looking for STORE
@@ -215,14 +170,6 @@ void Scanner::readFile() {
             else if(matchNextChar('u') && matchNextChar('b')) {
                 cout << "Got SUB" << endl;
                 tokenStream.push_back({ARITHOP, "sub"});
-
-            }
-            else {
-                //on broken input files, I may need to initzilize and int and keep a count every time a new identifier is found
-                // unget up to the count
-                // every white space reset the count?
-                // may have to call unget() here to put chars back in the stream
-                // unget can be used multiple time essentially unwinding the stream characters i've gotten
 
             }
 
@@ -357,6 +304,7 @@ void Scanner::readFile() {
     cout << "Reading out Tokens : " << endl;
 
 
+    /*
     for(auto i : tokenStream) {
         cout << "Token is: " << i.second << endl;
 
@@ -364,12 +312,7 @@ void Scanner::readFile() {
             cout << "WE got Airthop" << endl;
         }
     }
-
-
-
-
-
-
+     */
 
 }
 
